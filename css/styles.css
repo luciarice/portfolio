@@ -1,0 +1,314 @@
+/* ==========================================================================
+   Lucia Rice portfolio: site styles
+   Values (fonts, sizes, spacing) were taken from the original Portfoliobox
+   site, so the look matches. Change the tokens below to restyle everything.
+   ========================================================================== */
+
+:root {
+  /* colours */
+  --page-bg: #ffffff;
+  --page-text: #111111;
+  --panel: #f5f5f5;
+  --muted: #6b6b6b;
+  --border: rgba(17, 17, 17, 0.25);
+
+  /* fonts */
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-garamond: 'Garamond', serif;
+  --font-georgia: 'Georgia', serif;
+  --font-paste: 'Times New Roman', serif; /* used by the essay abstracts */
+
+  /* spacing */
+  --section-pad-y: 4vh;
+  --section-pad-x: 5%;
+  --col-gap: 40px;
+  --breakpoint-note: 768px; /* media queries below use this value */
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  overflow-x: clip;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible,
+button:focus-visible { outline: 2px solid var(--page-text); outline-offset: 3px; }
+
+/* ---------- header / navigation (centred, stacked) ---------- */
+
+.site-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.55em;
+  justify-items: center;
+  align-items: center;
+  padding: 18px 4vw;
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1;
+  text-align: center;
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2em;
+  row-gap: 0.4em;
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+
+.site-nav a { padding: 0.15em 0; border-bottom: 1px solid transparent; }
+.site-nav a:hover,
+.site-nav a[aria-current='page'] { border-bottom-color: currentColor; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  margin: 5px 0;
+  background: var(--page-text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- sections ---------- */
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  width: 100%;
+  min-height: 20px;
+  padding: var(--section-pad-y) var(--section-pad-x);
+}
+
+.section--two-col {
+  grid-template-columns: 1fr 1fr;
+  gap: var(--col-gap);
+}
+
+/* Each column inside a section is a vertical stack. */
+.col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.section--two-col.align-start { align-items: flex-start; }
+.section--two-col.align-end { align-items: flex-end; }
+
+/* Centre blocks inside a column unless a modifier says otherwise. */
+.col > * { margin-inline: auto; width: 100%; }
+.col > .self-start { margin-inline: 0 auto; }
+.col > .self-end { margin-inline: auto 0; }
+.col > .self-center { margin-inline: auto; }
+
+/* ---------- text blocks ---------- */
+
+.h1,
+.h2,
+.h3 {
+  font-family: var(--font-heading);
+  text-align: center;
+  margin-top: 0;
+}
+.h1 { font-size: 38px; font-weight: 700; margin-bottom: 32px; }
+.h2 { font-size: 29px; font-weight: 700; margin-bottom: 24px; }
+.h3 { font-size: 22px; font-weight: 500; margin-bottom: 20px; }
+
+.long-text { line-height: 1.8; margin-block: 0 16px; }
+.short-text { margin-block: 0 16px; }
+
+.max-800 { max-width: 800px; }
+.max-none { max-width: none; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+.font-garamond { font-family: var(--font-garamond); }
+.font-georgia { font-family: var(--font-georgia); }
+
+/* Essay abstracts were pasted into Portfoliobox with their own fonts, so each
+   variant below keeps the size it had on the original site. */
+.essay { font-family: var(--font-paste); font-size: 12px; line-height: normal; color: #000; }
+.essay p { margin: 0 0 1em; }
+.essay--garamond { font-family: var(--font-garamond); line-height: 1.2; }
+.essay--small { font-size: 8pt; line-height: 1.2; }
+.essay--small p { margin: 0; }
+.essay--small p.gap-after { margin-bottom: 1.2em; }
+.essay--small p.indent { margin-left: 36pt; }
+
+/* ---------- CAPS page ---------- */
+
+.dates {
+  font-family: var(--font-garamond);
+  font-size: 80px;
+  line-height: 1.5;
+  max-width: 500px;
+  text-align: right;
+  margin-block: 0;
+  font-weight: 400;
+}
+
+/* ---------- Research page: opening heading ---------- */
+
+.section--research-title {
+  grid-template-columns: 400px 360px;
+  gap: var(--col-gap);
+  justify-content: center;
+  overflow-x: clip;
+}
+/* The original heading was set wider than its 400px column, so it runs
+   across the grid on one line. Kept as it was. */
+.col > .research-title { width: 2000px; max-width: 1163px; text-align: left; margin-inline: 0; }
+
+/* ---------- description list (research page, last block) ---------- */
+
+.desc-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 32px;
+  align-items: start;
+  max-width: 800px;
+  font-family: var(--font-garamond);
+  text-align: justify;
+}
+.desc-list h5 { font-size: 1.1em; font-weight: 700; margin: 0 0 0.5em; }
+.desc-list p { margin: 0 0 1em; }
+.desc-list .desc > :last-child { margin-bottom: 0; }
+
+/* ---------- images and galleries ---------- */
+
+.single-image { max-width: 800px; margin-bottom: 16px; }
+.single-image img { width: 100%; height: auto; object-fit: cover; }
+.single-image--logo { max-width: 403px; max-height: 492px; }
+
+/* A row of images with equal heights. Each figure's width follows its
+   aspect ratio (--ar = width / height). If you swap a picture, update --ar. */
+.gallery {
+  display: flex;
+  align-items: stretch;
+  width: 83%;
+  margin: 0 auto 24px;
+}
+.gallery figure { flex: var(--ar, 1) 1 0; min-width: 0; margin: 0; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; }
+.gallery[data-lightbox] img { cursor: zoom-in; }
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  display: grid;
+  justify-content: center;
+  padding: 8vh var(--section-pad-x) 2vh;
+}
+
+/* ---------- animation (fade in on scroll) ---------- */
+
+.js .fade-in { opacity: 0; transition: opacity 0.8s ease; }
+.js .fade-in.in-view { opacity: 1; }
+.js .stagger-fade-up figure {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js .stagger-fade-up.in-view figure { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .fade-in,
+  .js .stagger-fade-up figure { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- lightbox ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.96);
+  animation: lb-fade 0.25s ease;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 88vh; object-fit: contain; }
+.lightbox button {
+  position: absolute;
+  background: none;
+  border: 0;
+  font-size: 34px;
+  line-height: 1;
+  padding: 14px 18px;
+  color: var(--page-text);
+  cursor: pointer;
+}
+.lightbox .lb-close { top: 8px; right: 8px; }
+.lightbox .lb-prev { left: 4px; top: 50%; transform: translateY(-50%); }
+.lightbox .lb-next { right: 4px; top: 50%; transform: translateY(-50%); }
+@keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 768px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+    justify-items: start;
+    padding: 14px 4vw;
+  }
+  .site-logo { font-size: 34px; text-align: left; }
+  .nav-toggle { display: block; }
+  .site-nav {
+    display: none;
+    grid-column: 1 / -1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 18px;
+    line-height: 1.2;
+    row-gap: 0.7em;
+    padding: 8px 0 4px;
+  }
+  .site-nav.open { display: flex; }
+
+  .section--two-col,
+  .section--research-title { grid-template-columns: 1fr; }
+  .col > .research-title { width: auto; max-width: 100%; text-align: center; }
+
+  .dates { font-size: 48px; text-align: left; margin-top: 12px; }
+  .col > .self-end { margin-inline: 0 auto; }
+
+  .desc-list { grid-template-columns: 1fr; row-gap: 24px; }
+  .gallery { width: 100%; }
+}

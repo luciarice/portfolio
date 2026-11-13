@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Curation block: native version of the Art UK curation
+   (Muirhead Bone's Glasgow: A City in Change).
+   Structure: intro, artwork count bar, then a "storyline" of text sections and
+   artwork rows (image | timeline | caption), then sources.
+   To add an artwork, copy one <figure class="artwork"> in index.html.
+   ========================================================================== */
+
+.curation {
+  --rail-gap: 280px;       /* width of the middle column that holds the timeline */
+  --img-col: 360px;        /* width of the image column */
+  --row-space: 72px;       /* vertical space between artwork rows */
+  width: 100%;
+  max-width: 1000px;
+  margin: 24px auto 40px;
+}
+
+.curation__source {
+  margin: 0 0 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+.curation__source a { text-decoration: underline; text-underline-offset: 3px; }
+
+.curation__text {
+  max-width: 727px;
+  margin: 0 auto 28px;
+  line-height: 1.9;
+  font-size: 16px;
+}
+.curation__text--meta {
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.curation__bar {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  margin: 36px 0 44px;
+  padding: 0 24px;
+  background: var(--panel);
+  font-size: 15px;
+}
+
+.curation__heading {
+  max-width: 727px;
+  margin: 56px auto 18px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---------- artwork row ---------- */
+
+.artwork {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, var(--img-col)) var(--rail-gap) minmax(0, var(--img-col));
+  align-items: start;
+  margin: 0 0 var(--row-space);
+  padding-bottom: 0;
+}
+
+.artwork img {
+  grid-column: 1;
+  width: 100%;
+  height: auto;
+}
+
+/* the dot and the vertical line that links one artwork to the next */
+.artwork::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: calc(var(--img-col) + var(--rail-gap) / 2 - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--page-text);
+}
+.artwork::after {
+  content: '';
+  position: absolute;
+  top: 28px;
+  bottom: calc(var(--row-space) * -1 + 8px);
+  left: calc(var(--img-col) + var(--rail-gap) / 2 - 0.5px);
+  width: 1px;
+  background: var(--border);
+}
+.artwork--last::after { bottom: 0; }
+
+.artwork figcaption {
+  grid-column: 3;
+  grid-row: 1;
+  padding-top: 0;
+}
+.artwork__title {
+  margin: 0 0 14px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.artwork__meta {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.artwork__meta span { display: block; }
+.artwork__meta .artwork__name { color: var(--page-text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- sources ---------- */
+
+.curation__sources {
+  max-width: 727px;
+  margin: 64px auto 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.curation__sources p { margin: 0 0 14px; }
+.curation__sources a { text-decoration: underline; text-underline-offset: 3px; word-break: break-all; }
+
+/* ---------- small screens: stack image above caption ---------- */
+
+@media (max-width: 768px) {
+  .artwork {
+    grid-template-columns: 1fr;
+    margin-bottom: 44px;
+    padding-left: 18px;
+    border-left: 1px solid var(--border);
+  }
+  .artwork::before { left: -3.5px; }
+  .artwork::after { display: none; }
+  .artwork img,
+  .artwork figcaption { grid-column: 1; grid-row: auto; }
+  .artwork figcaption { margin-top: 14px; }
+  .curation__bar { padding: 0 16px; }
+}
