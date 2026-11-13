@@ -141,3 +141,72 @@
   .artwork figcaption { margin-top: 14px; }
   .curation__bar { padding: 0 16px; }
 }
+
+/* The exhibition panel is its own scrollable reading room. */
+.curation-panel--bone { --bone-paper:#f9f7f3; background:var(--bone-paper); position:relative; counter-reset:bone-chapter; }
+.curation-panel--bone > .col > h1 { font-size:clamp(42px,5.3vw,78px); line-height:1.1; max-width:940px; font-weight:500; margin-bottom:22px; letter-spacing:-.045em; }
+.curation-panel--bone > .col > .h3 { font-size:clamp(15px,1.6vw,20px); max-width:780px; line-height:1.5; }
+.curation-panel--bone > .col > .long-text { max-width:760px; font-size:clamp(17px,1.7vw,21px); line-height:1.8; margin-bottom:clamp(68px,10vw,150px); }
+.curation-panel--bone .artuk-mark { width:clamp(95px,14vw,155px); max-width:none; margin:0 auto 27px; }
+.curation-panel--bone .artuk-mark a { display:block; border:0; padding:5px; }
+.curation-panel--bone .artuk-mark img { width:100%; height:auto; object-fit:contain; transition:transform .5s ease; }
+.curation-panel--bone .artuk-mark a:hover img { transform:translateY(-3px); }
+.curation-panel--bone .curation { max-width:1120px; }
+.curation-panel--bone .curation__source { text-align:left; margin:0 auto 52px; max-width:780px; padding-top:24px; border-top:1px solid #b7b1a7; }
+.curation-panel--bone .curation__text:not(.curation__text--meta) { font-family:var(--font-garamond); font-size:clamp(18px,1.65vw,21px); line-height:1.77; max-width:790px; }
+.curation-panel--bone .curation__text--meta { padding:17px 0; border-block:1px solid #d6d0c7; max-width:790px; margin-bottom:80px; }
+.curation-panel--bone .curation__heading { position:relative; max-width:900px; counter-increment:bone-chapter; font-size:clamp(26px,3.3vw,44px); font-weight:500; line-height:1.25; letter-spacing:-.025em; text-align:left; padding:26px 0 0; margin:clamp(105px,13vw,170px) auto 32px; border-top:1px solid #b4aaa0; }
+.curation-panel--bone .curation__heading::before { content:counter(bone-chapter,decimal-leading-zero); display:block; font:500 12px var(--font-body); color:#8a8074; letter-spacing:.18em; margin-bottom:20px; }
+.curation-panel--bone .curation__sources .curation__heading::before { display:none; }
+.curation-panel--bone .curation__sources .curation__heading { counter-increment:none; }
+.curation-panel--bone .artwork { --img-col: min(48%, 500px); --rail-gap: 7%; --row-space:clamp(100px,12vw,190px); grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:clamp(24px,6vw,85px); max-width:1040px; margin:clamp(72px,10vw,140px) auto; align-items:center; }
+.curation-panel--bone .artwork::before,.curation-panel--bone .artwork::after { display:none; }
+.curation-panel--bone .artwork img { grid-column:1; grid-row:1; width:100%; max-height:580px; object-fit:contain; object-position:center; filter:sepia(.12) contrast(.97); box-shadow:0 18px 50px rgba(51,43,31,.09); }
+.curation-panel--bone .artwork figcaption { grid-column:2; grid-row:1; padding:0; width:100%; border-top:1px solid #b4aaa0; padding-top:20px; }
+.curation-panel--bone .artwork:nth-of-type(even) img { grid-column:2; }
+.curation-panel--bone .artwork:nth-of-type(even) figcaption { grid-column:1; }
+.curation-panel--bone .artwork__title { font-size:clamp(25px,3vw,39px); font-weight:500; line-height:1.2; margin-bottom:22px; }
+.curation-panel--bone .artwork__meta { font-size:13px; line-height:1.85; }
+.curation-panel--bone .artwork__meta .artwork__name { text-decoration:none; }
+.curation-panel--bone .curation__sources { border-top:1px solid #b4aaa0; padding-top:20px; }
+.curation-panel--bone .curation__sources .curation__heading { border:0; font-size:26px; margin:0 0 28px; padding:0; }
+.bone-progress { position:sticky; top:0; z-index:7; width:100%; height:2px; margin:0 0 -2px; pointer-events:none; }
+.bone-progress__line,.bone-progress__fill { position:absolute; inset:0; background:#d8d3cc; }
+.bone-progress__fill { width:100%; background:#a23c31; transform-origin:0 50%; transform:scaleX(var(--bone-read-progress,0)); }
+/* A softer, directional reveal enhances the feeling of turning a folio page. */
+.js .curation-panel--bone .artwork { opacity:0; transform:translateY(55px); transition:opacity 1.05s cubic-bezier(.18,.7,.26,1),transform 1.15s cubic-bezier(.18,.7,.26,1); }
+.js .curation-panel--bone .artwork.in-view { opacity:1; transform:none; }
+.js .curation-panel--bone .artwork img { clip-path:inset(0 0 100% 0); transition:clip-path 1.25s cubic-bezier(.18,.7,.26,1),filter 1.1s,box-shadow .8s; }
+.js .curation-panel--bone .artwork.in-view img { clip-path:inset(0 0 0 0); }
+.js .curation-panel--bone .artwork figcaption { opacity:0; transform:translateY(22px); transition:opacity .9s ease .24s,transform .9s ease .24s; }
+.js .curation-panel--bone .artwork.in-view figcaption { opacity:1; transform:none; }
+.js .curation-panel--bone .curation__heading:not(.in-view) { opacity:0; transform:translateY(30px); }
+.js .curation-panel--bone .curation__heading.in-view { opacity:1; transform:none; }
+.js .curation-panel--bone .curation__text:not(.in-view) { opacity:.25; transform:translateY(17px); }
+.js .curation-panel--bone .curation__text.in-view { opacity:1; transform:none; }
+@media(max-width:768px) {
+ .curation-panel--bone > .col > h1 { font-size:clamp(35px,9vw,58px); }
+ .curation-panel--bone .artwork,.curation-panel--bone .artwork:nth-of-type(even) { display:flex; flex-direction:column; align-items:stretch; gap:22px; border:0; padding:0; margin:65px 0 95px; }
+ .curation-panel--bone .artwork img,.curation-panel--bone .artwork:nth-of-type(even) img { width:100%; max-height:430px; }
+ .curation-panel--bone .artwork figcaption,.curation-panel--bone .artwork:nth-of-type(even) figcaption { margin:0; }
+ .curation-panel--bone .curation__heading { margin:90px auto 27px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .js .curation-panel--bone .artwork,.js .curation-panel--bone .artwork img,.js .curation-panel--bone .artwork figcaption,.js .curation-panel--bone .curation__heading,.js .curation-panel--bone .curation__text { opacity:1 !important; transform:none !important; clip-path:none !important; transition:none !important; }
+}
+
+/* Fixed progress placement and a consistent white curation canvas. */
+.curation-panel--bone {background:var(--page-bg);}
+.curation-panel--bone > .col > h1 {font-size:clamp(34px,4.15vw,60px);max-width:860px;}
+.bone-progress {position:relative;top:auto;z-index:2;height:3px;min-height:3px;flex:none;width:100%;margin:0;pointer-events:none;background:#eeebe6;}
+.bone-progress__line,.bone-progress__fill{position:absolute;inset:0;}
+.bone-progress__line{background:#eae6e0;}
+.bone-progress__fill{background:#ad443a;transform:scaleX(var(--bone-read-progress,0));transform-origin:0 50%;transition:transform .12s linear;}
+.curation-panel--bone .artuk-mark a {border-radius:2px;transition:background .35s ease,transform .35s ease;}
+.curation-panel--bone .artuk-mark a:hover {background:#f9f7f3;transform:translateY(-3px);}
+.curation-panel--bone .artuk-mark a:hover img{transform:none;}
+.curation-panel--bone .artwork img{transition:clip-path 1.25s cubic-bezier(.18,.7,.26,1),filter .55s ease,box-shadow .55s ease,transform .6s ease;}
+.curation-panel--bone .artwork img:hover {filter:sepia(0) contrast(1.05);transform:scale(1.025);box-shadow:0 24px 45px rgba(51,43,31,.14);}
+.curation-panel--bone .curation__heading::after{content:'';display:block;width:0;height:1px;background:#a7a097;margin-top:25px;transition:width .85s cubic-bezier(.2,.7,.2,1) .2s;}
+.curation-panel--bone .curation__heading.in-view::after{width:38%;}
+@media(prefers-reduced-motion:reduce){.curation-panel--bone .curation__heading::after{width:38%;transition:none}.curation-panel--bone .artwork img:hover{transform:none}}
